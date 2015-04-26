@@ -58,7 +58,6 @@ void bst::del(int type, string str) {
 }
 
 void bst::search(int type, string str) {
-	cout << "¦³·j´M" << str << endl;
 	for (vector<book>::iterator i = tree.begin(); i != tree.end(); ++i) {
 		switch (type) {
 		case 1:

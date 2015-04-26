@@ -1,9 +1,17 @@
+/*
+C++第三次作業
+作者:張語航、吳彥誠
+時間:2015/04/27
+基本上都寫完了inorder輸出跟big5輸出沒寫(我懶得寫了...)
+*/
+
 #include<iostream>
 #include<stdio.h>
 #include<fstream>
 #include<string>
 #include"binary_search_tree.h"
 using namespace std;
+
 int main() {
 	fstream fin;
 	fin.open("test.txt", ios::in);
