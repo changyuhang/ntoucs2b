@@ -8,7 +8,6 @@
 namespace Bigint {
 	class Bigint {
 	private:
-	public:
 		std::vector<int> number;
 		bool positive;
 		int base;
@@ -21,7 +20,7 @@ namespace Bigint {
 		Bigint(char*);
 
 		//Adding
-		Bigint operator++();
+		Bigint& operator++();
 		Bigint operator++(int);
 		Bigint operator+(Bigint const &b) const;
 		Bigint& operator+=(Bigint const &b);
@@ -29,6 +28,8 @@ namespace Bigint {
 		Bigint& operator+=(long long b);
 
 		//Subtraction
+		Bigint& Bigint::operator--();
+		Bigint Bigint::operator--(int);
 		Bigint operator-(Bigint const &b) const;
 		Bigint& operator-=(Bigint const &b);
 
@@ -37,7 +38,8 @@ namespace Bigint {
 		Bigint& operator*=(Bigint const &b);
 		Bigint operator*(long long const &b);
 		Bigint& operator*=(int const &b);
-
+		//Division
+		//Bigint operator/(Bigint const &b);
 		//Compare
 		bool operator<(const Bigint &a) const;
 		bool operator>(const Bigint &a) const;
@@ -46,6 +48,7 @@ namespace Bigint {
 		bool operator==(const Bigint &a) const;
 
 		//Allocation
+		Bigint operator=(const char*);
 		Bigint operator=(const long long &a);
 		Bigint operator=(const Bigint &b);
 
@@ -59,19 +62,15 @@ namespace Bigint {
 		void clear();
 		Bigint& abs();
 
-		//Power
-		Bigint& pow(int const &power);
 		//Trivia
 		int digits() const;
 		int trailing_zeros() const;
 	private:
 		int segment_length(int segment) const;
-		Bigint pow(int const &power, std::map<int, Bigint> &lookup);
 		int compare(Bigint const &b) const; //0 a == b, -1 a < b, 1 a > b
 	};
 	Bigint abs(Bigint value);
 	std::string to_string(Bigint value);
-	Bigint factorial(int n);
 }
 
 #endif

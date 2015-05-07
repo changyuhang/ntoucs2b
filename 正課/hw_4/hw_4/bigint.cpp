@@ -46,7 +46,7 @@ namespace Bigint {
 		}
 	}
 	//Adding
-	Bigint Bigint::operator++() {
+	Bigint& Bigint::operator++() {
 		*this += 1;
 		return *this;
 	}
@@ -114,8 +114,15 @@ namespace Bigint {
 		}
 		return *this;
 	}
-
 	//Subtraction
+	Bigint& Bigint::operator--() {
+		*this -= 1;
+		return *this;
+	}
+	Bigint Bigint::operator--(int) {
+		*this -= 1;
+		return *this + 1;
+	}
 	Bigint Bigint::operator-(Bigint const &b) const {
 		Bigint c = *this;
 		return c -= b;
@@ -147,7 +154,6 @@ namespace Bigint {
 		if (dif < 0) positive = false;
 		return *this;
 	}
-
 	//Multiplication
 	Bigint Bigint::operator*(Bigint const &b) {
 		if (b.number.size() == 1) return *this *= b.number[0];
@@ -183,30 +189,6 @@ namespace Bigint {
 		if (sum) number.push_back(sum);
 		return *this;
 	}
-
-	//Power
-	Bigint Bigint::pow(int const &power, std::map<int, Bigint> &lookup) {
-		if (power == 1) 			return *this;
-		if (lookup.count(power)) return lookup[power];
-
-		int closestPower = 1;
-		while (closestPower < power) closestPower <<= 1;
-		closestPower >>= 1;
-
-		if (power == closestPower) lookup[power] = pow(power / 2, lookup)*pow(power / 2, lookup);
-		else lookup[power] = pow(closestPower, lookup)*pow(power - closestPower, lookup);
-
-		return lookup[power];
-	}
-	Bigint& Bigint::pow(int const &power) {
-		std::map<int, Bigint> lookup;
-		if (power % 2 == 0 && positive == false) {
-			positive = true;
-		}
-		*this = pow(power, lookup);
-		return *this;
-	}
-
 	//Compare
 	int Bigint::compare(const Bigint &a) const {  //0 this == a || -1 this < a || 1 this > a
 		if (positive && !a.positive) return 1;
@@ -245,8 +227,25 @@ namespace Bigint {
 		if (compare(b) == 0) return true;
 		return false;
 	}
-
 	//Allocation
+	Bigint Bigint::operator=(const char* s) {
+		number.clear();
+		if (s[0] == '-')positive = false;
+		if (s[0] == '+')positive = true;
+		int string_pos = strlen(s);
+		for (int vec_pos = 0; vec_pos <= strlen(s) / 9; vec_pos++) {
+			int temp = 0;
+			for (int i = string_pos - 9; i < string_pos; i++) {
+				i = i < 0 ? 0 : i;
+				if (s[i] > '9' || s[i] < '0')continue;
+				temp *= 10;
+				temp += s[i] - '0';
+			}
+			number.push_back(temp);
+			string_pos -= 9;
+		}
+		return *this;
+	}
 	Bigint Bigint::operator=(const long long &a) {
 		number.clear();
 		long long t = a;
@@ -267,7 +266,6 @@ namespace Bigint {
 	int Bigint::operator[](int const &b) {
 		return to_string(*this)[b] - '0';
 	}
-
 	//Trivia
 	int Bigint::digits() const {
 		int segments = number.size();
@@ -292,7 +290,6 @@ namespace Bigint {
 		}
 		return zeros;
 	}
-
 	//Helpers
 	void Bigint::clear() {
 		number.clear();
@@ -303,7 +300,6 @@ namespace Bigint {
 		positive = true;
 		return *this;
 	}
-
 	//Input&Output
 	std::ostream &operator<<(std::ostream &out, Bigint a) {
 		while (a.number.size() && a.number.back() == 0) a.number.pop_back();
@@ -356,18 +352,5 @@ namespace Bigint {
 		std::ostringstream stream;
 		stream << value;
 		return stream.str();
-	}
-	Bigint factorial(int n) {
-		Bigint result = 1;
-		if (n % 2) {
-			result = n;
-			n--;
-		}
-		int last = 0;
-		for (; n >= 2; n -= 2) {
-			result *= n + last;
-			last += n;
-		}
-		return result;
 	}
 }
