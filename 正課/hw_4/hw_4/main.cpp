@@ -3,16 +3,14 @@
 #include "bigint.h"
 
 using namespace std;
-
 void main() {
-
-	Bigint::Bigint x, y("1234"), z("00000987654321");
+	Bigint x, y("1234"), z("00000987654321");
 	cout << "x y z values: " << x << ' ' << y << ' ' << z << endl;
-	Bigint::Bigint i(44); // Array 大小 2		 
-	Bigint::Bigint j(i);
-	Bigint::Bigint k(10);
+	Bigint i(44); // Array 大小 2		 
+	Bigint j(i);
+	Bigint k(10);
 	cout << "i j k values: " << i << ' ' << j << ' ' << k << endl;
-	//cout << "Total BigInt Object Count: " << Bigint::getCount() << endl;
+	cout << "Total BigInt Object Count: " << Bigint::getCount() << endl;
 	x = y = "987654321098765432109876543210987654321098765432109876543210";
 	cout << "x y z values: " << x << ' ' << y << ' ' << z << endl;
 	y = 10; y *= -88;
@@ -49,8 +47,8 @@ void main() {
 		cout << "x == y" << endl;
 	else
 		cout << "x != y" << endl;
-	//if (x != z)
-	//	cout << "x != z" << endl;
-	//else
-	//	cout << "x == z" << endl;
+	if (x != z)
+		cout << "x != z" << endl;
+	else
+		cout << "x == z" << endl;
 }
