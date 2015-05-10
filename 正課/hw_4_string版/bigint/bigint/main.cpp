@@ -9,7 +9,7 @@ using namespace std;
 //------------------------------------------------------------------------------
 void BigInt::checkzero(){
 	int check = 0, i;
-	if (sign)i = 1;
+	if (number[0]=='-')i = 1;
 	else i = 0;
 	for (; i < number.length(); i++){
 		if ((number[i] - '0') && !check){
@@ -464,7 +464,7 @@ int BigInt::getCount(){
 	return count;
 }
 void main() {
-	BigInt x, y("1234"), z("00000987654321");
+	BigInt x, y("1234"), z("-00000987654321");
 
 	cout << "x y z values: " << x << ' ' << y << ' ' << z << endl;
 
