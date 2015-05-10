@@ -14,12 +14,14 @@ private:
 	string number;
 	bool sign;
 public:
-	friend ostream & operator<<(ostream &, BigInt);
+	friend ostream & operator<<(ostream &, BigInt &);
 	BigInt(); // empty constructor initializes zero
 	BigInt(string s); // "string" constructor
 	BigInt(string s, bool sin); // "string" constructor
 	BigInt(int s,int size);
 	BigInt(int n); // "int" constructor
+	BigInt(BigInt & copy);
+	~BigInt();
 	void checkzero();
 	void setNumber(string s);
 	const string& getNumber(); // retrieves the number

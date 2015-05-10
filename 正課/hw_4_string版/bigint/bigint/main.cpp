@@ -81,7 +81,14 @@ BigInt::BigInt(int s, int size){
 	setNumber(copy);
 	count++;
 }
-
+BigInt::BigInt(BigInt & copy){
+	sign = copy.sign;
+	number = copy.number;
+	count++;
+}
+BigInt::~BigInt(){
+	--count;
+}
 void BigInt::setNumber(string s) {
 	number = s;
 }
@@ -445,9 +452,11 @@ long long BigInt::toInt(string s) {
 
 	return sum;
 }
-ostream & operator<<(ostream & output, BigInt a){
-	if (a.sign)output << '-';
-	output << a.number;
+ostream & operator<<(ostream & output, BigInt & a){
+	string temp;
+	temp = a.getNumber();
+	if (a.getSign())output << '-';
+	output << temp;
 	return output;
 }
 int BigInt::count = 0;
@@ -519,24 +528,13 @@ void main() {
 
 	cout << "x y z values: " << x << ' ' << y << ' ' << z << endl;
 
-
-
 	if (x == y)
-
 		cout << "x == y" << endl;
-
 	else
-
 		cout << "x != y" << endl;
-
-
-
 	if (x != z)
-
 		cout << "x != z" << endl;
-
 	else
-
 		cout << "x == z" << endl;
 	return;
 }
