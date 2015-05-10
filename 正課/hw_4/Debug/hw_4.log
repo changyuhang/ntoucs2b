@@ -1,0 +1,23 @@
+﻿已經開始建置於 2015/5/10 下午 10:43:33。
+     1>節點 2 (Build 目標) 上的專案 "C:\Users\Finian\Desktop\hw_4\hw_4.vcxproj"。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt bigint.cpp
+         bigint.cpp
+     1>c:\users\finian\desktop\hw_4\bigint.cpp(43): warning C4018: '<=' : signed/unsigned 不相符
+     1>c:\users\finian\desktop\hw_4\bigint.cpp(47): warning C4244: '=' : 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+     1>c:\users\finian\desktop\hw_4\bigint.cpp(34): warning C4101: 'num' : 未參考的區域變數
+     1>c:\users\finian\desktop\hw_4\bigint.cpp(188): warning C4244: '引數' : 將 'const __int64' 轉換為 'const int'，由於類型不同，可能導致資料遺失
+     1>c:\users\finian\desktop\hw_4\bigint.cpp(199): warning C4244: '引數' : 將 '__int64' 轉換為 'const int'，由於類型不同，可能導致資料遺失
+     1>c:\users\finian\desktop\hw_4\bigint.cpp(220): warning C4244: '引數' : 將 'const __int64' 轉換為 'const int'，由於類型不同，可能導致資料遺失
+     1>c:\users\finian\desktop\hw_4\bigint.cpp(285): warning C4018: '<=' : signed/unsigned 不相符
+     1>c:\users\finian\desktop\hw_4\bigint.cpp(289): warning C4244: '=' : 將 'double' 轉換為 'int'，由於類型不同，可能導致資料遺失
+     1>c:\users\finian\desktop\hw_4\bigint.cpp(276): warning C4101: 'num' : 未參考的區域變數
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Finian\Desktop\hw_4\Debug\hw_4.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Finian\Desktop\hw_4\Debug\hw_4.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Finian\Desktop\hw_4\Debug\hw_4.lib" /MACHINE:X86 Debug\bigint.obj
+         Debug\main.obj
+         hw_4.vcxproj -> C:\Users\Finian\Desktop\hw_4\Debug\hw_4.exe
+     1>專案 "C:\Users\Finian\Desktop\hw_4\hw_4.vcxproj" (Build 目標) 建置完成。
+
+建置成功。
+
+經過時間 00:00:01.53
