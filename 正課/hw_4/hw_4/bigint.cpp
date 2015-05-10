@@ -80,9 +80,30 @@ Bigint& Bigint::operator+=(Bigint const &b) {
 		else {
 			number.push_back(0);
 		}
+<<<<<<< HEAD
 		if (it2 != b.number.end()) {
 			sum += *it2;
 			it2++;
+=======
+	}
+	//Adding
+	Bigint Bigint::operator++() {
+		*this += 1;
+		return *this;
+	}
+	Bigint Bigint::operator++(int) {
+		*this += 1;
+		return *this - 1;
+	}
+	Bigint Bigint::operator+(Bigint const &b) const {
+		Bigint c = *this;
+		return c += b;
+	}
+	Bigint& Bigint::operator+=(Bigint const &b) {
+		while (number.size() < b.number.size()) number.push_back(0);
+		if (b.positive == false) {
+			return *this -= b;
+>>>>>>> parent of 04cc215... 一點點的修改
 		}
 		*it1 = sum%base;
 		it1++;
@@ -144,6 +165,7 @@ Bigint& Bigint::operator-=(Bigint const &b) {
 			dif -= *it2;
 			it2++;
 		}
+<<<<<<< HEAD
 		if (dif < 0) {
 			*(it1 - 1) = (dif*(-1)) % base;
 			dif = -1;
@@ -151,6 +173,55 @@ Bigint& Bigint::operator-=(Bigint const &b) {
 		else {
 			*(it1 - 1) = dif%base;
 			dif /= base;
+=======
+		return *this;
+	}
+
+	//Subtraction
+	Bigint Bigint::operator-(Bigint const &b) const {
+		Bigint c = *this;
+		return c -= b;
+	}
+	Bigint& Bigint::operator-=(Bigint const &b) {
+		std::vector<int>::iterator
+			it1 = number.begin();
+		std::vector<int>::const_iterator
+			it2 = b.number.begin();
+		int dif = 0;
+		while (it1 != number.end() || it2 != b.number.end()) {
+			if (it1 != number.end()) {
+				dif += *it1;
+				it1++;
+			}
+			if (it2 != b.number.end()) {
+				dif -= *it2;
+				it2++;
+			}
+			if (dif < 0) {
+				*(it1 - 1) = (dif*(-1)) % base;
+				dif = -1;
+			}
+			else {
+				*(it1 - 1) = dif%base;
+				dif /= base;
+			}
+		}
+		if (dif < 0) positive = false;
+		return *this;
+	}
+
+	//Multiplication
+	Bigint Bigint::operator*(Bigint const &b) {
+		if (b.number.size() == 1) return *this *= b.number[0];
+		std::vector<int>::iterator it1;
+		std::vector<int>::const_iterator it2;
+		Bigint c;
+		for (it1 = number.begin(); it1 != number.end(); ++it1) {
+			for (it2 = b.number.begin(); it2 != b.number.end(); ++it2) {
+				c.skip = (int)(it1 - number.begin()) + (int)(it2 - b.number.begin());
+				c += (long long)(*it1)*(*it2);
+			}
+>>>>>>> parent of 04cc215... 一點點的修改
 		}
 	}
 	if (dif < 0) positive = false;
@@ -168,6 +239,7 @@ Bigint Bigint::operator*(Bigint const &b) {
 			c += (long long)(*it1)*(*it2);
 		}
 	}
+<<<<<<< HEAD
 	c.skip = 0;
 	return c;
 }
@@ -195,6 +267,37 @@ Bigint& Bigint::operator*=(int const &b) {
 int Bigint::compare(const Bigint &a) const {  //0 this == a || -1 this < a || 1 this > a
 	if (positive && !a.positive) return 1;
 	if (!positive && a.positive) return -1;
+=======
+
+	//Power
+	Bigint Bigint::pow(int const &power, std::map<int, Bigint> &lookup) {
+		if (power == 1) 			return *this;
+		if (lookup.count(power)) return lookup[power];
+
+		int closestPower = 1;
+		while (closestPower < power) closestPower <<= 1;
+		closestPower >>= 1;
+
+		if (power == closestPower) lookup[power] = pow(power / 2, lookup)*pow(power / 2, lookup);
+		else lookup[power] = pow(closestPower, lookup)*pow(power - closestPower, lookup);
+
+		return lookup[power];
+	}
+	Bigint& Bigint::pow(int const &power) {
+		std::map<int, Bigint> lookup;
+		if (power % 2 == 0 && positive == false) {
+			positive = true;
+		}
+		*this = pow(power, lookup);
+		return *this;
+	}
+
+	//Compare
+	int Bigint::compare(const Bigint &a) const {  //0 this == a || -1 this < a || 1 this > a
+		if (positive && !a.positive) return 1;
+		if (!positive && a.positive) return -1;
+
+>>>>>>> parent of 04cc215... 一點點的修改
 		int check = 1;
 	if (!positive && !a.positive) check = -1;
 		if (number.size() < a.number.size()) return -1 * check;
@@ -245,6 +348,7 @@ Bigint Bigint::operator=(const char* s) {
 			temp *= 10;
 			temp += s[i] - '0';
 		}
+<<<<<<< HEAD
 		number.push_back(temp);
 		string_pos -= 9;
 	}
@@ -285,8 +389,79 @@ int Bigint::trailing_zeros() const {
 	if (number.size() > 1) {
 		for (; it != number.end() - 1 && *it == 0; ++it) {
 			zeros += 9;
+=======
+		return 0; // ==
+	}
+	bool Bigint::operator<(Bigint const &b) const {
+		if (compare(b) == -1) return true;
+		return false;
+	}
+	bool Bigint::operator<=(Bigint const &b) const {
+		int compared = compare(b);
+		if (compared == 0 || compared == -1) return true;
+		return false;
+	}
+	bool Bigint::operator>(Bigint const &b) const {
+		if (compare(b) == 1) return true;
+		return false;
+	}
+	bool Bigint::operator>=(Bigint const &b) const {
+		int compared = compare(b);
+		if (compared == 0 || compared == 1) return true;
+		return false;
+	}
+	bool Bigint::operator==(Bigint const &b) const {
+		if (compare(b) == 0) return true;
+		return false;
+	}
+
+	//Allocation
+	Bigint Bigint::operator=(const long long &a) {
+		number.clear();
+		long long t = a;
+		do {
+			number.push_back(t%base);
+			t /= base;
+		} while (t != 0);
+		return *this;
+	}
+	Bigint Bigint::operator=(const Bigint &b) {
+		number.clear();
+		for (std::vector<int>::const_iterator it = b.number.begin(); it != b.number.end(); ++it) {
+			number.push_back(*it);
+		}
+		return *this;
+	}
+	//Access
+	int Bigint::operator[](int const &b) {
+		return to_string(*this)[b] - '0';
+	}
+
+	//Trivia
+	int Bigint::digits() const {
+		int segments = number.size();
+		if (segments == 0) return 0;
+		int digits = 9 * (segments - 1);
+		digits += segment_length(number.back());
+		return digits;
+	}
+	int Bigint::trailing_zeros() const {
+		if (number.empty() || (number.size() == 1 && number[0] == 0)) return 1;
+		int zeros = 0;
+		std::vector<int>::const_iterator it = number.begin();
+		if (number.size() > 1) {
+			for (; it != number.end() - 1 && *it == 0; ++it) {
+				zeros += 9;
+			}
+		}
+		int a = *it;
+		while (a % 10 == 0 && a) {
+			zeros++;
+			a /= 10;
+>>>>>>> parent of 04cc215... 一點點的修改
 		}
 	}
+<<<<<<< HEAD
 	int a = *it;
 	while (a % 10 == 0 && a) {
 		zeros++;
@@ -326,6 +501,43 @@ std::istream &operator>>(std::istream &in, Bigint &a) {
 	while (true) {
 		if (size <= 0) break;
 		if (!a.positive && size <= 1) break;
+=======
+
+	//Helpers
+	void Bigint::clear() {
+		number.clear();
+		positive = true;
+		skip = 0;
+	}
+	Bigint& Bigint::abs() {
+		positive = true;
+		return *this;
+	}
+
+	//Input&Output
+	std::ostream &operator<<(std::ostream &out, Bigint a) {
+		while (a.number.size() && a.number.back() == 0) a.number.pop_back();
+		if (!a.number.size()) return out << 0;
+		if (!a.positive) out << '-';
+		std::vector<int>::const_reverse_iterator it = a.number.rbegin();
+		out << *it;
+		if (it != a.number.rend()) ++it;
+		for (; it != a.number.rend(); ++it) {
+			for (int i(0), len = a.segment_length(*it); i < 9 - len; ++i) out << '0';
+			if (*it) out << *it;
+		}
+		return out;
+	}
+	std::istream &operator>>(std::istream &in, Bigint &a) {
+		std::string str;
+		in >> str;
+		int size = str.length();
+		if (str[0] == '-') a.positive = false;
+		while (true) {
+			if (size <= 0) break;
+			if (!a.positive && size <= 1) break;
+
+>>>>>>> parent of 04cc215... 一點點的修改
 			int length = 0;
 		int num = 0;
 		int prefix = 1;
@@ -335,6 +547,7 @@ std::istream &operator>>(std::istream &in, Bigint &a) {
 			prefix *= 10;
 			length++;
 		}
+<<<<<<< HEAD
 		a.number.push_back(num);
 		size -= length;
 	}
@@ -355,4 +568,29 @@ std::string to_string(Bigint value) {
 	std::ostringstream stream;
 	stream << value;
 	return stream.str();
+=======
+		return length;
+	}
+	Bigint abs(Bigint value) {
+		return value.abs();
+	}
+	std::string to_string(Bigint value) {
+		std::ostringstream stream;
+		stream << value;
+		return stream.str();
+	}
+	Bigint factorial(int n) {
+		Bigint result = 1;
+		if (n % 2) {
+			result = n;
+			n--;
+		}
+		int last = 0;
+		for (; n >= 2; n -= 2) {
+			result *= n + last;
+			last += n;
+		}
+		return result;
+	}
+>>>>>>> parent of 04cc215... 一點點的修改
 }

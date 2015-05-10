@@ -39,7 +39,7 @@ void main() {
 	cout << "k values: " << k++ << ' ' << k << endl;
 	k = 10;	x = ++k++;
 	cout << "x k values: " << x << ' ' << k << endl;
-	k = 10;	x = --k--;
+	//k = 10;	x = --k--;
 	cout << "x k values: " << x << ' ' << k << endl;
 	x = y = "987654321098765432109876543210";
 	cout << "x y z values: " << x << ' ' << y << ' ' << z << endl;
