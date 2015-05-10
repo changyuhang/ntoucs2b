@@ -24,11 +24,14 @@ void main() {
 	cout << "x values: " << x << endl;
 	//x /= i;
 	cout << "x values: " << x << endl;
-	y = 10; y += -88;
+	y = 10; y += (long long)-88;
 	cout << "y values: " << y << endl;
-	y = 10; y += i;
+	y = 10;
+	y += i;
+
 	cout << "y values: " << y << endl;
-	y = 10; y -= -88;
+	i = -88;
+	y = 10; y -= i;
 	cout << "y values: " << y << endl;
 	y = 10; y -= i;
 	cout << "y values: " << y << endl;

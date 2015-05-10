@@ -49,11 +49,11 @@ Bigint::Bigint(char* s) {
 }
 //Adding
 Bigint& Bigint::operator++() {
-	*this += 1;
+	*this += (long long)1;
 	return *this;
 }
 Bigint Bigint::operator++(int) {
-	*this += 1;
+	*this += (long long)1;
 	return *this - 1;
 }
 Bigint Bigint::operator+(Bigint const &b) const {
@@ -95,25 +95,18 @@ Bigint Bigint::operator+(long long const &b) const {
 	Bigint c = *this;
 	return c += b;
 }
-Bigint& Bigint::operator+=(long long b) {
-	std::vector<int>::iterator it = number.begin();
-	if (skip > number.size()) {
-		number.insert(number.end(), skip - number.size(), 0);
-	}
-	it += skip;
-	while (b) {
-		if (it != number.end()) {
-			*it += b%base;
-			b /= base;
-			b += *it / base;
-			*it %= base;
-			++it;
-		}
-		else {
-			number.push_back(0);
-			it = number.end() - 1;
-		}
-	}
+Bigint& Bigint::operator+=(long long const &b) {
+	Bigint t = b;
+	*this += t;
+	return *this;
+}
+Bigint Bigint::operator+(char const &c) {
+	Bigint t = *this;
+	return t += c;
+}
+Bigint& Bigint::operator+=(char const &c) {
+	Bigint t = c;
+	*this += t;
 	return *this;
 }
 //Subtraction
@@ -252,6 +245,8 @@ Bigint Bigint::operator=(const char* s) {
 }
 Bigint Bigint::operator=(const long long &a) {
 	number.clear();
+	if (a < 0)positive = false;
+	else positive = true;
 	long long t = a;
 	do {
 		number.push_back(t%base);
@@ -261,6 +256,7 @@ Bigint Bigint::operator=(const long long &a) {
 }
 Bigint Bigint::operator=(const Bigint &b) {
 	number.clear();
+	positive = b.positive;
 	for (std::vector<int>::const_iterator it = b.number.begin(); it != b.number.end(); ++it) {
 		number.push_back(*it);
 	}
