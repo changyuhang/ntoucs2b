@@ -20,7 +20,8 @@ void main() {
 	y = 10;
 	y *= i;
 	cout << "y values: " << y << endl;
-	//y = x / 8;
+	x = 1000;
+	y = x / 8;
 	cout << "y values: " << y << endl;
 	//x /= -8;
 	cout << "x values: " << x << endl;

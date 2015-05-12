@@ -201,18 +201,15 @@ namespace Bigint {
 	}
 	//Division
 	Bigint Bigint::operator/(Bigint const &b) {
-		std::vector<int>::iterator it1;
-		std::vector<int>::const_iterator it2;
-		Bigint c;
-		for (it1 = number.begin(); it1 != number.end(); c++, it1++) {
-			for (it2 = b.number.begin(); it2 != b.number.end(); it2++){
-				*it1 -= *it2;
-			}
+		Bigint temp = b;
+		Bigint ans;
+		for (ans = (long long)0; *this < b; ans++) {
+			*this -= b;
 		}
-		return c;
+		return ans;
 	}
 	Bigint& Bigint::operator/=(Bigint const &b){
-		*this = *this / b;
+		*this = *this / b;	
 		return *this;
 	}
 	Bigint Bigint::operator/(long long const &b) {
@@ -220,13 +217,13 @@ namespace Bigint {
 		return c /= b;
 	}
 	Bigint& Bigint::operator/=(int const &b){
-		std::vector<int>::iterator it1;
-		std::vector<int>::iterator it2;
-		Bigint c;
-		for (it1= number.begin(); *it1> b; c++) {
-				*it1 -= b;
+		Bigint ans;
+		Bigint temp = b;
+		cout << *this;
+		for (ans = (long long)0; *this>temp; ans++) {
+			*this -= b;
 		}
-		*this = c;
+		*this = ans;
 		return *this;
 	}
 	//Compare
